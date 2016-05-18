@@ -2,6 +2,7 @@ package ness.spring.repo;
 
 import ness.spring.repo.util.ReadAndUpload;
 import ness.spring.repo.util.Task;
+import ness.spring.repo.util.TaskReadFromFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,8 +60,10 @@ public class Controller {
     @ResponseBody
     public String test(@PathVariable("name") String name) {
         String path = "C:\\Users\\V3790149\\IdeaProjects\\SpringBootWebAppV1_1\\src\\" + name + ".log";
-        ReadAndUpload readAndUpload = new ReadAndUpload();
-        return readAndUpload.read(path);
+        TaskReadFromFile task = new TaskReadFromFile(path);
+        task.run();
+
+        return task.getRezult();
     }
 
     @RequestMapping("/read/{ip}/cauta")
