@@ -11,7 +11,6 @@ public class InfoLog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
     public long getId() {
         return this.id;
     }
@@ -20,9 +19,10 @@ public class InfoLog {
 
     }
 
-    public InfoLog(String ip, String size) {
+    public InfoLog(String ip, String size, String response) {
         this.ip = ip;
         this.nr = size;
+        this.response = response;
     }
     @Column(name = "IP")
     public String ip;
@@ -46,8 +46,19 @@ public class InfoLog {
         return this.nr;
     }
 
+    @Column(name = "Response")
+    public String response;
+
+    public void setResponse(String response){
+        this.response = response;
+    }
+
+    public String getResponse(){
+        return response;
+    }
+
     @Override
     public String toString() {
-        return "ID " + this.id + " IP " + this.ip + " Bytes Send " + this.nr;
+        return "ID " + this.id + " IP " + this.ip + " Bytes Send " + this.nr + " response " + this.getResponse();
     }
 }

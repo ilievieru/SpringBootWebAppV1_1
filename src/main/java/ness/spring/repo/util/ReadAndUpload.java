@@ -12,61 +12,12 @@ import java.util.zip.GZIPInputStream;
  */
 public class ReadAndUpload {
     InfoLogRepository repo;
-    public ReadAndUpload(InfoLogRepository repo){
-     this.repo = repo;
-    }
-    public ReadAndUpload(){
 
+    public ReadAndUpload(InfoLogRepository repo) {
+        this.repo = repo;
     }
 
-    public String read(String path) {
-        String result = " ";
-        try {
-            InputStream fileStream = new FileInputStream(path);
-            InputStream gzipStream = new GZIPInputStream(fileStream);
-            Reader decoder = new InputStreamReader(gzipStream);
-            BufferedReader buffered = new BufferedReader(decoder);
-            String strLine;
-            /* read log line by line */
-            while ((strLine = buffered.readLine()) != null) {
-             /* parse strLine to obtain what you want */
-                result = result + "<p>" + matcher(strLine) + "</p>";
-            }
-            fileStream.close();
-            gzipStream.close();
-            decoder.close();
-            buffered.close();
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-        }
-        return result;
-    }
-
-    public String matcher(String line) {
-        String result = " ";
-        StringTokenizer matcher = new StringTokenizer(line);
-        String hostName = matcher.nextToken();
-        result = "\n" + result + " Hostname: " + hostName;
-        matcher.nextToken();
-        matcher.nextToken();
-        String dateTime = matcher.nextToken("]");
-        result = "\n" + result + " Date/Time: " + dateTime;
-        //matcher.nextToken(" "); // again
-        String request = matcher.nextToken("\"");
-        result = "\n" + result + " Request: " + request;
-        matcher.nextToken(" "); // again
-        String response = matcher.nextToken();
-        result = "\n" + result + " Response: " + response;
-        String referer = matcher.nextToken();
-        result = "\n" + result + " Referer: " + referer;
-        String byteCount = matcher.nextToken("\"");
-        result = "\n" + result + " ByteCount: " + byteCount;
-        matcher.nextToken(" "); // again
-        String userAgent = matcher.nextToken("\"");
-        result = "\n" + result + " User-Agent: " + userAgent;
-
-        return result;
-    }
+    BufferedReader buffered;
 
     public void readForUpload(String path) {
 
@@ -74,41 +25,43 @@ public class ReadAndUpload {
             InputStream fileStream = new FileInputStream(path);
             InputStream gzipStream = new GZIPInputStream(fileStream);
             Reader decoder = new InputStreamReader(gzipStream);
-            BufferedReader buffered = new BufferedReader(decoder);
+            buffered = new BufferedReader(decoder);
             String strLine;
-            /* read log line by line */
             while ((strLine = buffered.readLine()) != null) {
-             /* parse strLine to obtain what you want */
                 upload(strLine);
             }
-            fileStream.close();
-            gzipStream.close();
-            decoder.close();
-            buffered.close();
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                buffered.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void upload(String line) {
         StringTokenizer matcher = new StringTokenizer(line);
+       // System.out.println("The line"+line);
         String hostName = matcher.nextToken();
-        //System.out.println(hostName);
         matcher.nextToken();
         matcher.nextToken();
+
         String dateTime = matcher.nextToken("]");
-        //matcher.nextToken(" "); // again
+        matcher.nextToken("\"");
         String request = matcher.nextToken("\"");
-        matcher.nextToken(" "); // again
+
+        matcher.nextToken(" ");
         String response = matcher.nextToken();
-        String referer = matcher.nextToken();
         String byteCount = matcher.nextToken("\"");
-        matcher.nextToken(" "); // again
+
+
+        String referer = matcher.nextToken();
+        matcher.nextToken("\"");
         String userAgent = matcher.nextToken("\"");
-
-        //creaza entitate
-
-        InfoLog inf = new InfoLog(hostName, byteCount);
+        InfoLog inf = new InfoLog(hostName, byteCount, response);
+        //System.out.println("host "+hostName + " \ndata " + dateTime + " \nrequest " + request +  "\nresponse " + response + " \nreferer" + referer + "\nbyte " + byteCount + "\nuserAgent " + userAgent);
         repo.save(inf);
     }
 
