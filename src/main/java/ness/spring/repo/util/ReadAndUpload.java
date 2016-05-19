@@ -1,7 +1,7 @@
 package ness.spring.repo.util;
 
 import ness.spring.repo.InfoLog;
-import ness.spring.repo.service.PersonalRepoImpl;
+import ness.spring.repo.service.PersonalRepo;
 
 import java.io.*;
 import java.util.StringTokenizer;
@@ -11,9 +11,9 @@ import java.util.zip.GZIPInputStream;
  * Created by V3790149 on 5/18/2016.
  */
 public class ReadAndUpload {
-    PersonalRepoImpl repo;
+    PersonalRepo repo;
 
-    public ReadAndUpload(PersonalRepoImpl repo) {
+    public ReadAndUpload(PersonalRepo repo) {
         this.repo = repo;
     }
 

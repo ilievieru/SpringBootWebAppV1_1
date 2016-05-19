@@ -1,6 +1,6 @@
 package ness.spring.repo;
 
-import ness.spring.repo.service.PersonalRepoImpl;
+import ness.spring.repo.service.PersonalRepo;
 import ness.spring.repo.util.ReadAndUpload;
 import ness.spring.repo.util.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 @RestController
 public class Controller {
     @Autowired
-    PersonalRepoImpl repo;
+    PersonalRepo repo;
 
     @RequestMapping(value = "/salut")
     public String salut() {
