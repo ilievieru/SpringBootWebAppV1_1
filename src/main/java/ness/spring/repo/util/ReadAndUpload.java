@@ -1,6 +1,6 @@
 package ness.spring.repo.util;
 
-import ness.spring.repo.InfoLog;
+import ness.spring.repo.repository.InfoLog;
 import ness.spring.repo.service.PersonalRepo;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package ness.spring.repo;
+package ness.spring.repo.repository;
 
 import ness.spring.repo.service.PersonalRepo;
 import ness.spring.repo.util.ReadAndUpload;

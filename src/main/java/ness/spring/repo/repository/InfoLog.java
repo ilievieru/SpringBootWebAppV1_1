@@ -1,4 +1,4 @@
-package ness.spring.repo;
+package ness.spring.repo.repository;
 /**
  * Created by V3790149 on 5/16/2016.
  */

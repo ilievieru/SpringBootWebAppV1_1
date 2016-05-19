@@ -1,7 +1,7 @@
 package ness.spring.repo.service;
 
-import ness.spring.repo.InfoLog;
-import ness.spring.repo.InfoLogRepository;
+import ness.spring.repo.repository.InfoLog;
+import ness.spring.repo.repository.InfoLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
