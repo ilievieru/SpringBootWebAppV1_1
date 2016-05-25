@@ -11,7 +11,7 @@ public interface PersonalRepo {
 
     void save(InfoLog infoLog);
     List findByIp(String ip);
-    List findById(long id);
+    InfoLog findById(long id);
     Iterable findAll();
 
 

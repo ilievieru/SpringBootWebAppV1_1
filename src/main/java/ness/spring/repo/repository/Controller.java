@@ -1,5 +1,7 @@
 package ness.spring.repo.repository;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import ness.spring.repo.mapper.Views;
 import ness.spring.repo.service.PersonalRepo;
 import ness.spring.repo.util.ReadAndUpload;
 import ness.spring.repo.util.Task;
@@ -20,6 +22,7 @@ import java.util.concurrent.Executors;
  */
 @RestController
 public class Controller {
+
     @Autowired
     PersonalRepo repo;
 
@@ -65,6 +68,21 @@ public class Controller {
         }
     }
 
+    @RequestMapping("/{ip}/usermap")
+    @ResponseBody
+    @JsonView(Views.UserInfoLog.class)
+    public  Iterable<InfoLog> mappper(@PathVariable("ip") String ip) {
+        Iterable<InfoLog> list = repo.findByIp(ip);
+        return list;
+    }
+
+    @RequestMapping("/{ip}/adminmap")
+    @ResponseBody
+    @JsonView(Views.AdminInfoLog.class)
+    public  Iterable<InfoLog> mappper1(@PathVariable("ip") String ip) {
+        Iterable<InfoLog> list = repo.findByIp(ip);
+        return list;
+    }
     @RequestMapping("/{ip}/see")
     @ResponseBody
     public String ipdetailes(@PathVariable("ip") String ip) {
@@ -77,11 +95,11 @@ public class Controller {
     }
 
     @RequestMapping("/findAll")
-    public String find(){
+    public String find() {
         String rez = "";
         Iterable<InfoLog> list = repo.findAll();
-        for(InfoLog info : list){
-            rez += "<p>" + info.toString() +"</p>";
+        for (InfoLog info : list) {
+            rez += "<p>" + info.toString() + "</p>";
         }
         return rez;
     }
@@ -94,7 +112,7 @@ public class Controller {
         Iterable<InfoLog> list = repo.findByIp(ip);
         for (InfoLog inf : list)
             total += Integer.parseInt(inf.getNr().trim());
-        return "<p>IP " + ip + " total bytes send " + total ;
+        return "<p>IP " + ip + " total bytes send " + total;
     }
 
 
@@ -106,14 +124,14 @@ public class Controller {
         // System.out.println(ip);
         List<InfoLog> list = repo.findByIp(ip);
         int tot = list.size();
-        for (InfoLog inf : list){
-           if(inf.getResponse().contains("200"))
-               total200 ++;
-            if(inf.getResponse().contains("404"))
-                total404 ++;
+        for (InfoLog inf : list) {
+            if (inf.getResponse().contains("200"))
+                total200++;
+            if (inf.getResponse().contains("404"))
+                total404++;
         }
-        float tot200 = total200/tot ;
-        float tot404 = total404/tot;
-        return "<p>IP " + ip + " has " + tot200*100 +"% positive responses and " + tot404*100  + "% negative responses ";
+        float tot200 = total200 / tot;
+        float tot404 = total404 / tot;
+        return "<p>IP " + ip + " has " + tot200 * 100 + "% positive responses and " + tot404 * 100 + "% negative responses ";
     }
 }

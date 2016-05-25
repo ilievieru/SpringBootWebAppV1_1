@@ -12,23 +12,26 @@ import java.util.List;
  */
 @Component
 public class PersonalRepoImpl implements PersonalRepo {
-    @Autowired
-    InfoLogRepository repository;
 
+    @Autowired
+    InfoLogRepository info;
+    @Override
     public void save(InfoLog infoLog) {
-        repository.save(infoLog);
+        info.save(infoLog);
 
     }
 
     public List findByIp(String ip) {
-        return repository.findByIp(ip);
+       return info.findByIp(ip);
     }
 
-    public List findById(long id) {
-        return (List) repository.findOne(id);
+    public InfoLog findById(long id) {
+       return info.findOne(id);
+
     }
 
     public Iterable findAll() {
-        return repository.findAll();
+       return info.findAll();
+
     }
 }

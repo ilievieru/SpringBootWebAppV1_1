@@ -3,15 +3,20 @@ package ness.spring.repo.repository;
  * Created by V3790149 on 5/16/2016.
  */
 
+import com.fasterxml.jackson.annotation.JsonView;
+import ness.spring.repo.mapper.Views;
+
 import javax.persistence.*;
 
 @Entity
+@Table(name = "ilie")
 public class InfoLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @JsonView(Views.AdminInfoLog.class)
+    private int id;
 
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -24,7 +29,8 @@ public class InfoLog {
         this.nr = size;
         this.response = response;
     }
-    @Column(name = "IP")
+    @Column(name = "ip")
+    @JsonView(Views.UserInfoLog.class)
     public String ip;
 
     public void setIp(String ip) {
@@ -35,7 +41,8 @@ public class InfoLog {
         return this.ip;
     }
 
-    @Column(name = "BytesSend")
+    @Column(name = "bytes")
+    @JsonView(Views.AdminInfoLog.class)
     public String nr;
 
     public void setNr(String nr) {
@@ -46,7 +53,8 @@ public class InfoLog {
         return this.nr;
     }
 
-    @Column(name = "Response")
+    @Column(name = "response")
+    @JsonView(Views.UserInfoLog.class)
     public String response;
 
     public void setResponse(String response){
