@@ -7,6 +7,7 @@ public class SpringBootWebAppV11Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootWebAppV11Application.class, args);
+		System.out.println("Started");
 	}
 
 }
