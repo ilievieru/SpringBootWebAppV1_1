@@ -1,0 +1,28 @@
+<!--
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="P3700664 (generated)" id="1464601354402-1">
+        <createTable tableName="LogFile">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ip" type="VARCHAR(255)"/>
+            <column name="bytes" type="VARCHAR(255)"/>
+            <column name="response" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="P3700664 (generated)" id="1464601354402-2">
+        <createTable tableName="test">
+            <column name="nume" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prenume" type="VARCHAR(45)"/>
+            <column name="varsta" type="VARCHAR(45)"/>
+            <column name="telefon" type="VARCHAR(45)"/>
+            <column name="address" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="P3700664 (generated)" id="1464601354402-3">
+        <addPrimaryKey columnNames="nume" constraintName="PRIMARY" tableName="test"/>
+    </changeSet>
+</databaseChangeLog>-->

@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 public class Controller {
 
     @Autowired
-    PersonalRepo repo;
+    private PersonalRepo repo;
 
     @RequestMapping(value = "/salut")
     public String salut() {

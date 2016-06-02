@@ -5,11 +5,9 @@ package ness.spring.repo.repository;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import ness.spring.repo.mapper.Views;
-
 import javax.persistence.*;
-
 @Entity
-@Table(name = "ilie")
+@Table(name = "logfile")
 public class InfoLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
